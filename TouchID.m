@@ -17,8 +17,8 @@ RCT_EXPORT_METHOD(isSupported: (NSDictionary *)options
     if (RCTNilIfNull([options objectForKey:@"passcodeFallback"]) != nil) {
         passcodeFallback = [RCTConvert NSNumber:options[@"passcodeFallback"]];
     }
-    
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&error]) {
         
         // No error found, proceed
         callback(@[[NSNull null], [self getBiometryType:context]]);
@@ -60,7 +60,7 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
     }
 
     // Device has TouchID
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&error]) {
         // Attempt Authentification
         [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:reason
